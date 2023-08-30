@@ -1,0 +1,75 @@
+**Java Adapter Pattern: Making Incompatible Interfaces Compatible**
+
+The Adapter Design Pattern allows objects with incompatible interfaces to work together. It acts as a bridge between
+ two incompatible interfaces, allowing them to collaborate seamlessly.
+
+**Example:**
+
+Here's an example of an adapter pattern in Java that adapts an older printer interface to a new interface:
+
+```java
+// Existing Printer Interface (Incompatible)
+interface OldPrinter {
+    void print();
+}
+
+// New Printer Interface (Expected by Client)
+interface NewPrinter {
+    void printDocument();
+}
+
+// Adapter to Make Old Printer Interface Compatible with New Printer Interface
+class PrinterAdapter implements NewPrinter {
+    private OldPrinter oldPrinter;
+
+    public PrinterAdapter(OldPrinter oldPrinter) {
+        this.oldPrinter = oldPrinter;
+    }
+
+    @Override
+    public void printDocument() {
+        oldPrinter.print();
+    }
+}
+
+// Client Code
+public class AdapterExample {
+    public static void main(String[] args) {
+        OldPrinter oldPrinter = new OldDotMatrixPrinter();
+        NewPrinter newPrinter = new PrinterAdapter(oldPrinter);
+
+        newPrinter.printDocument();
+    }
+}
+
+// Existing Old Dot Matrix Printer (Incompatible)
+class OldDotMatrixPrinter implements OldPrinter {
+    @Override
+    public void print() {
+        System.out.println("Printing with old dot matrix printer");
+    }
+}
+```
+
+**How to Identify When to Apply the Adapter Design Pattern:**
+
+1. **Incompatible Interfaces:** When you have classes/interfaces with incompatible methods that you need to use together.
+
+2. **Reuse Existing Classes:** If you want to reuse existing classes that don't match the expected interface of the client code.
+
+3. **Class Evolution:** When you're working with legacy code or third-party libraries that need to be integrated into your application.
+
+**Where to Apply the Adapter Design Pattern:**
+
+- **Legacy Systems Integration:** When integrating legacy systems with modern codebases that use different interfaces.
+
+- **Third-Party Libraries:** Adapting third-party libraries or components to fit your application's interface requirements.
+
+- **API Evolution:** When an API evolves over time, an adapter can help maintain backward compatibility with older versions.
+
+- **Graphical User Interfaces:** Adapting user interface components to different platforms or frameworks.
+
+- **Testing:** Creating test adapters to isolate components for unit testing or mocking.
+
+By applying the Adapter Design Pattern, you can make incompatible interfaces work together seamlessly, enabling you to integrate
+and use components that were not originally designed to work together.
